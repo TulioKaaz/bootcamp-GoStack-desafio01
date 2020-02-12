@@ -6,11 +6,41 @@ server.use(express.json());
 
 const projects = [];
 
+server.use((req, res, next) => {
+  console.count('Requests');
+
+  return next();
+})
+
+function checkProjectExists(req, res, next){
+  const { id } = req.params;
+
+  const project = projects.find(project => project.id == id);
+
+  if (!project){
+    return res.status(400).json({ error: "Project don't exist" });
+  }
+
+  return next();
+}
+
+function checkIdIsUnique (req, res, next){
+  const { id } = req.body;
+
+  const project = projects.find(project => project.id == id);
+
+  if (project){
+    return res.status(400).json({ error: "Id is being used" });
+  }
+  
+  return next()
+}
+
 server.get('/projects', (req, res) => {
   return res.json(projects);
 })
 
-server.post('/projects', (req, res) => {
+server.post('/projects', checkIdIsUnique, (req, res) => {
   const { id, title } = req.body;
 
   const project = { id, title, tasks: [] };
@@ -20,7 +50,7 @@ server.post('/projects', (req, res) => {
   return res.json({ message: "Project successfully added" });
 })
 
-server.put('/projects/:id', (req, res) => {
+server.put('/projects/:id', checkProjectExists, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
@@ -31,7 +61,7 @@ server.put('/projects/:id', (req, res) => {
   return res.json({ message: "Project successfully edited" });
 })
 
-server.delete('/projects/:id', (req, res) => {
+server.delete('/projects/:id', checkProjectExists, (req, res) => {
   const { id } = req.params;
 
   const projectIndex = projects.findIndex(project => project.id == id);
@@ -40,7 +70,7 @@ server.delete('/projects/:id', (req, res) => {
   return res.json({ message: "Project successfully deleted" });
 })
 
-server.post('/projects/:id/tasks', (req, res) => {
+server.post('/projects/:id/tasks', checkProjectExists, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 

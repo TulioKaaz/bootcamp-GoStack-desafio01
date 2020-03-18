@@ -1,9 +1,19 @@
-## Server NodeJs usando Insomnia
+<h1 align="center">
+    <img alt="GoStack" src="https://res.cloudinary.com/zagatti/image/upload/v1583287835/readme/logo-gostack_u0ur8n.png" width="150px" />
+</h1>
 
-  Aplicação em NodeJs para armazenar projetos em forma de objeto javascript.
+<h2 align="center"> Server NodeJs usando Insomnia </h2>
 
+  
+<p align="center">  Aplicação em NodeJs para armazenar projetos em forma de objeto javascript.  </p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/github/license/AZagatti/challenge05-gostack10?style=plastic">
+
+</p>
 
 ---
+
 ### Como usar?
 
   Para iniciar a aplicação rode um ``` yarn dev ``` no terminal.
@@ -20,7 +30,7 @@
   - ``` PUT /projects/:id ``` Edita o título do projeto com o id especificado na
   rota.
 
-  _ ``` DELETE /projects/:id ``` Deleta o projeto com o id especificado na rota.
+  - ``` DELETE /projects/:id ``` Deleta o projeto com o id especificado na rota.
 
 ---
 ### Middlewares
